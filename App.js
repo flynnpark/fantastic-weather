@@ -1,34 +1,40 @@
-import React from 'react';
-import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+import React, {Component} from 'react';
+import {StyleSheet, Text, View, ActivityIndicator} from 'react-native';
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <View style={styles.redView} />
-        <View style={styles.yellowView} />
-      </View>
-    );
-  }
+export default class App extends Component {
+    state = {
+        isLoaded: false
+    }
+
+    render() {
+        const {isLoaded} = this.state;
+
+        return (<View style={styles.container}>
+            {
+                isLoaded
+                    ? null
+                    : <View style={styles.loading}>
+                            <Text style={styles.loadingText}>Getting weather...</Text>
+                        </View>
+            }
+        </View>);
+    }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-    alignItems: 'stretch',
-    flexDirection: 'row',
-    flexWrap: 'wrap'
-  },
-  redView: {
-      height: 50,
-      width: 50,
-      backgroundColor: 'red',
-  },
-  yellowView: {
-      height: 50,
-      width: 50,
-      backgroundColor: 'yellow',
-  }
+    container: {
+        flex: 1,
+        backgroundColor: '#fff'
+    },
+    loading: {
+        flex: 1,
+        backgroundColor: '#FDF6AA',
+        justifyContent: 'flex-end',
+        paddingLeft: 25,
+        paddingRight: 25
+    },
+    loadingText: {
+        fontSize: 38,
+        marginBottom: 100
+    }
 });
